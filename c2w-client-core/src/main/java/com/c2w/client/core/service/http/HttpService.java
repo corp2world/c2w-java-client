@@ -165,7 +165,7 @@ public class HttpService implements Service {
 			log.debug("Sending message: " + messageAsJson);
 			
 			// Prepare and execute POST request
-			HttpPost httpPost = new HttpPost(new URL(urlAsString).toExternalForm());
+			HttpPost httpPost = new HttpPost(new URL(urlAsString + "/post").toExternalForm());
 			StringEntity entity = new StringEntity(messageAsJson, StandardCharsets.UTF_8);		
 			entity.setContentType("application/json");
 			httpPost.setEntity(entity);

@@ -1,9 +1,12 @@
 package com.c2w.client.core.message;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 
 /**
  * This class represents user response for dialog message
  */
+@XmlRootElement
 public class MessageResponse extends PropertiesModel {
 
 	/**

@@ -8,11 +8,8 @@ import java.util.Map;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Class represent Message object.
+ * Class represents Message object.
  * Message has topic, text (main message content) and additional properties.
- * 
- * @author peter
- *
  */
 @XmlRootElement
 public class Message extends PropertiesModel {
@@ -215,7 +212,7 @@ public class Message extends PropertiesModel {
 	 * @param response option response
 	 * @param hint option hint (description)
 	 */
-	public void addDialogOption(String option) {  //  *1   , *2
+	public void addDialogOption(String option) {  
 		dialogOptions.add(option);
 	}
 	
