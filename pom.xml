@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.c2w</groupId>
-	<artifactId>c2w-client</artifactId>
+	<artifactId>c2w-java-client</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>${project.artifactId}</name>
@@ -15,7 +15,7 @@
 	</properties>
 
 	<modules>
-		<module>c2w-client-core</module>
+		<module>c2w-java-client-core</module>
 	</modules>
 
 	<dependencies>
