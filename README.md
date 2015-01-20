@@ -63,7 +63,7 @@ System.out.println("Response: "+result.getResponse());
 System.out.println("Message ID: "+result.getProperty("messageId"));
 ```
 
-If you sent a 'dialog' message with user response options you can check if any user (wh received this message) has responded:
+If you sent a 'dialog' message with user response options you can check if any user (who received this message) has responded:
 ```
 List<MessageResponse> responseList = service.waitForResponse(Long.parseLong(result.getProperty("messageId")), 600);
 ```
