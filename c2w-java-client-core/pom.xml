@@ -1,22 +1,20 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>com.c2w</groupId>
-    <artifactId>c2w-java-client</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-  </parent>
-  
-  <artifactId>c2w-java-client-core</artifactId>
-  <packaging>jar</packaging>
-  <name>${project.artifactId}</name>
-  
-  
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+	<parent>
+		<groupId>com.c2w</groupId>
+		<artifactId>c2w-java-client</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>c2w-java-client-core</artifactId>
+	<packaging>jar</packaging>
+
+	<name>Corp2World Java Client</name>
+	<description>Core java client library for Corp2World service</description>
 
 	<dependencies>
 
@@ -76,8 +74,8 @@
 			</plugin>
 
 		</plugins>
-		
-				<pluginManagement>
+
+		<pluginManagement>
 			<plugins>
 				<!--This plugin's configuration is used to store Eclipse m2e settings 
 					only. It has no influence on the Maven build itself. -->
@@ -116,5 +114,5 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-  
+
 </project>

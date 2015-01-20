@@ -37,9 +37,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.PoolingClientConnectionManager;
 import org.apache.http.util.EntityUtils;
 
-import com.c2w.client.core.Result;
 import com.c2w.client.core.message.Message;
 import com.c2w.client.core.message.MessageResponse;
+import com.c2w.client.core.service.Result;
 import com.c2w.client.core.service.Service;
 import com.c2w.client.core.service.ServiceException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -49,19 +49,31 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * HTTP-based Corp2World message service implementation
  * This implementation requires certain system properties to be set correctly. They are:
  * <ul>
- *  <li>com.c2w.service.http.url - URL of the Corp2World message service </li>
- *  <li>com.c2w.client.name - client name , used for the authentication </li>
- *  <li>com.c2w.client.password - client password , used for the authentication </li>
- *  <li>com.c2w.certificate.file - in case if HTTPS (over SSL) is used than this property specifies the file with Corp2World server certificate.
- *  	In most cases default value should work fine.</li> 
+ *  <li>com.c2w.service.url - URL of the Corp2World message service </li>
+ *  <li>com.c2w.client.token - client name , used for the authentication </li>
+ *  <li>com.c2w.client.key - client password , used for the authentication </li>
+ *  <li>com.c2w.truststore.file - key-store file with trusted Corp2World server certificate. In most cases should not be required.</li> 
+ *  <li>com.c2w.truststore.password - key-store password for trusted Corp2World server certificate. In most cases should not be required</li>
+ *  
+ *  If you need to use a proxy for internet access, use the following optional properties:
+ *  <li>com.c2w.service.proxy.host - proxy host</li>
+ *  <li>com.c2w.service.proxy.port - proxy port</li>
+ *  <li>com.c2w.service.proxy.user - proxy user name (if proxy requires authorization)</li>
+ *  <li>com.c2w.service.proxy.password - proxy password (if proxy requires authorization)</li>
  * </ul>
  * 
  *  This properties can be set through Java JVM parameters passed as -D<parameter_name>=<parameter_value>  or
  *  from Java code as <br>
  *  
  *  System.getProperties().setProperty("<property_name>", "<property_value>");
+ *  
  */
 public class HttpService implements Service {
+	
+	/**
+	 * Default service URL
+	 */
+	public static final String DEFAULT_URL = "https://www.corp2world.com:9443/rest";
 	
 	/**
 	 * System property to specify Corp2World server URL 
@@ -118,36 +130,55 @@ public class HttpService implements Service {
 	 */
 	public static final String PROXY_PASSWORD = "com.c2w.service.proxy.password";
 	
-	/**
+	/*
 	 * Log4J logger
 	 */
 	private static Log log = LogFactory.getLog(HttpService.class);
 	
-	/**
+	/*
+	 * Path to 'post message' RESTful resource
+	 */
+	private static final String PATH_POST_MESSAGE = "/message/post";
+	
+	/*
+	 * Path to 'get message response' RESTful resource
+	 */
+	private static final String PATH_GET_RESPONSE = "/message/response";
+	
+	/*
 	 * JSON object mapper
 	 */
 	private ObjectMapper mapper;
 	
-	/**
+	/*
 	 * Connection state
 	 */
 	private boolean connected = false;
 	
-	/**
+	/*
 	 * HTTP client
 	 */
 	private DefaultHttpClient httpClient;
 	
-	/**
-	 * URL to service
+	/*
+	 * Service URL
 	 */
 	private URL url;
 	
-	private String urlAsString;
+	/*
+	 * Service URL string
+	 */
+	private String urlAsString = DEFAULT_URL;
 	
+	/**
+	 * Create new service instance
+	 */
 	public HttpService() {
 	}
 	
+	/**
+	 * Send message
+	 */
 	@Override
 	public Result send(Message message) throws ServiceException {
 
@@ -165,7 +196,7 @@ public class HttpService implements Service {
 			log.debug("Sending message: " + messageAsJson);
 			
 			// Prepare and execute POST request
-			HttpPost httpPost = new HttpPost(new URL(urlAsString + "/post").toExternalForm());
+			HttpPost httpPost = new HttpPost(new URL(urlAsString + PATH_POST_MESSAGE).toExternalForm());
 			StringEntity entity = new StringEntity(messageAsJson, StandardCharsets.UTF_8);		
 			entity.setContentType("application/json");
 			httpPost.setEntity(entity);
@@ -213,7 +244,7 @@ public class HttpService implements Service {
 				log.debug("Getting message response for messageID: " + messageId);
 
 				// Prepare and execute POST request
-				HttpGet httpGet = new HttpGet(new URL(urlAsString + "/response?messageId="+messageId).toExternalForm());
+				HttpGet httpGet = new HttpGet(new URL(urlAsString + PATH_GET_RESPONSE + "?messageId="+messageId).toExternalForm());
 				httpGet.getParams().setLongParameter("messageId", messageId);
 				HttpResponse response = httpClient.execute(httpGet);
 
@@ -247,11 +278,12 @@ public class HttpService implements Service {
 		try {
 			
 			// Get Server URL
-			urlAsString = System.getProperty(SERVER_URL);
+			urlAsString = System.getProperty(SERVER_URL, urlAsString);
+			
 			log.debug("Connecting to the service at " + urlAsString);
 			if(urlAsString == null || urlAsString.length() < 1) {
 				log.error("Server URL must be specified for HttpTransport, please refer documentation for details");
-				throw new ServiceException("Cannot initialize HttpTTransport, server URL is not specified");
+				throw new ServiceException("Cannot initialize HttpTransport, server URL is not specified");
 			}	
 			url = new URL(urlAsString);
 			
@@ -259,14 +291,14 @@ public class HttpService implements Service {
 			String clientName = System.getProperty(CLIENT_NAME);
 			if(clientName == null || clientName.length() < 1) {
 				log.error("Client name must be specified, please refer documentation for details");
-				throw new ServiceException("Cannot initialize HttpTTransport, client name is not specified");
+				throw new ServiceException("Cannot initialize HttpTransport, client name is not specified");
 			}	
 
 			// Get client password
 			String clientPassword = System.getProperty(CLIENT_PASSWORD);
 			if(clientName == null || clientName.length() < 1) {
 				log.error("Client password must be specified, please refer documentation for details");
-				throw new ServiceException("Cannot initialize HttpTTransport, client password is not specified");
+				throw new ServiceException("Cannot initialize HttpTransport, client password is not specified");
 			}	
 			
 			// Initialize client
@@ -319,12 +351,9 @@ public class HttpService implements Service {
 				sr.register(https);
 			} 
 			
-			// If HTTP
 			// Always register HTTP schema with default port
-			//else if(url.getProtocol().toLowerCase().startsWith("http")) {
-				Scheme http = new Scheme( "http", 80,  PlainSocketFactory.getSocketFactory());
-				sr.register(http);			
-			//}
+			Scheme http = new Scheme( "http", 80,  PlainSocketFactory.getSocketFactory());
+			sr.register(http);			
 				
 			// Otherwise - throw exception	
 			if( !(url.getProtocol().toLowerCase().startsWith("http") || url.getProtocol().toLowerCase().startsWith("https") ) ) {
@@ -333,9 +362,7 @@ public class HttpService implements Service {
 			}
 			
 			PoolingClientConnectionManager cm = new PoolingClientConnectionManager(sr);
-			// Increase max total connection to 200
 			cm.setMaxTotal(10);
-			// Increase default max connection per route to 20
 			cm.setDefaultMaxPerRoute(10);
 
 			// Add user credentials

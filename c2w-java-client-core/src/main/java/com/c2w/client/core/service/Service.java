@@ -2,7 +2,6 @@ package com.c2w.client.core.service;
 
 import java.util.List;
 
-import com.c2w.client.core.Result;
 import com.c2w.client.core.message.Message;
 import com.c2w.client.core.message.MessageResponse;
 

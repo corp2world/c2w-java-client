@@ -7,8 +7,22 @@
 	<artifactId>c2w-java-client</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>${project.artifactId}</name>
+	
+	<name>Corp2World Java Client</name>
+	<description>Java client library for Corp2World service</description>
 	<url>https://www.corp2world.com</url>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+		<url>https://github.com/corp2world/c2w-java-client.git</url>
+	</scm>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

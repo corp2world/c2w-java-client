@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.c2w.client.core.message.Message;
 import com.c2w.client.core.message.MessageResponse;
+import com.c2w.client.core.service.Result;
 import com.c2w.client.core.service.Service;
 import com.c2w.client.core.service.ServiceException;
 import com.c2w.client.core.service.ServiceFactory;

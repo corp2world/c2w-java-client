@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents message delivery data 
+ * Represents message delivery data
+ *  
  */
 public class MessageDelivery implements Serializable {
 
@@ -28,8 +29,20 @@ public class MessageDelivery implements Serializable {
 	private String note;
 	private List<String> recipients;
 	
+	/**
+	 * Create new instance
+	 */
 	public MessageDelivery() {}
 	
+	/**
+	 * Create new instance
+	 * @param deliveryId delivery ID
+	 * @param messageId message ID
+	 * @param customerChannelId customer channel ID
+	 * @param status delivery status
+	 * @param deliveryTime delivery timestamp
+	 * @param note additional information
+	 */
 	public MessageDelivery(long deliveryId, long messageId, long customerChannelId,
 			DELIVERY_STATUS status, long deliveryTime, String note) {
 		super();
@@ -42,7 +55,16 @@ public class MessageDelivery implements Serializable {
 		recipients = new ArrayList<String>(1);
 	}
 
-
+	/**
+	 * Create new instance
+	 * @param deliveryId delivery ID
+	 * @param messageId message ID
+	 * @param customerChannelId customer channel ID
+	 * @param status delivery status
+	 * @param deliveryTime delivery timestamp
+	 * @param deliveryDateTime delivery date and time in string presentation
+	 * @param note additional information
+	 */
 	public MessageDelivery(long deliveryId, long messageId, long customerChannelId,
 			DELIVERY_STATUS status, long deliveryTime, String deliveryDateTime, String note) {
 		
@@ -50,50 +72,121 @@ public class MessageDelivery implements Serializable {
 		this.deliveryDateTime = deliveryDateTime;
 	}
 
-	
+	/**
+	 * Get delivery ID
+	 * @return delivery ID
+	 */
 	public long getDeliveryId() {
 		return deliveryId;
 	}
-
+	
+	/**
+	 * Set delivery ID
+	 * (Populated by Corp2World service)
+	 * @param deliveryId delivery ID
+	 */
 	public void setDeliveryId(long deliveryId) {
 		this.deliveryId = deliveryId;
 	}
 
+	/**
+	 * Get message ID
+	 * @return message ID
+	 */
 	public long getMessageId() {
 		return messageId;
 	}
+	
+	/**
+	 * Set message ID
+	 * (Populated by Corp2World service)
+	 * @param messageId message ID
+	 */
 	public void setMessageId(long messageId) {
 		this.messageId = messageId;
 	}
+	
+	/**
+	 * Get customer channel ID
+	 * @return customer channel ID
+	 */
 	public long getCustomerChannelId() {
 		return customerChannelId;
 	}
+	
+	/**
+	 * Set customer channel ID
+	 * (Populated by Corp2World service)
+	 * @param customerChannelId
+	 */
 	public void setCustomerChannelId(long customerChannelId) {
 		this.customerChannelId = customerChannelId;
 	}
+	
+	/**
+	 * Get delivery status
+	 * @return delivery status
+	 */
 	public DELIVERY_STATUS getStatus() {
 		return status;
 	}
+	
+	/**
+	 * Set delivery status
+	 * (Populated by Corp2World service)
+	 * @param status delivery status
+	 */
 	public void setStatus(DELIVERY_STATUS status) {
 		this.status = status;
 	}
+	
+	/**
+	 * Get delivery UTC timestamp 
+	 * @return delivery UTC timestamp
+	 */
 	public long getDeliveryTime() {
 		return deliveryTime;
 	}
+	
+	/**
+	 * Set delivery UTC timestamp
+	 * (Populated by Corp2World service)
+	 * @param deliveryTime delivery UTC timestamp
+	 */
 	public void setDeliveryTime(long deliveryTime) {
 		this.deliveryTime = deliveryTime;
 	}
+	
+	/**
+	 * Get delivery note
+	 * @return delivery note
+	 */
 	public String getNote() {
 		return note;
 	}
+	
+	/**
+	 * Set delivery note
+	 * (Populated by Corp2World service)
+	 * @param note delivery note
+	 */
 	public void setNote(String note) {
 		this.note = note;
 	}
 
+	/**
+	 * Get delivery date and time in string presentation 
+	 * @return date and time in string presentation
+	 */
 	public String getDeliveryDateTime() {
 		return deliveryDateTime;
 	}
 
+	/**
+	 * Set delivery date and time in string presentation
+	 * (Populated by Corp2World service)
+	 * @param deliveryDateTime delivery date and time
+	 */
 	public void setDeliveryDateTime(String deliveryDateTime) {
 		this.deliveryDateTime = deliveryDateTime;
 	}
@@ -113,6 +206,5 @@ public class MessageDelivery implements Serializable {
 	public void setRecipients(List<String> recipients) {
 		this.recipients = recipients;
 	}
-	
 	
 }

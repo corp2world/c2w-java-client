@@ -8,7 +8,7 @@ import java.util.Map;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Class represents Message object.
+ * Class represents C2W Message object.
  * Message has topic, text (main message content) and additional properties.
  */
 @XmlRootElement
@@ -58,54 +58,119 @@ public class Message extends PropertiesModel {
 		this.text = text;
 	}
 
-	
+	/**
+	 * Get message ID
+	 * @return message ID
+	 */
 	public long getId() {
 		return id;
 	}
 
+	/**
+	 * Set message ID
+	 * Populated by the Corp2World service
+	 * @param id message ID
+	 */
 	public void setId(long id) {
 		this.id = id;
 	}
 	
+	/**
+	 * Get customer ID
+	 * @return customer ID
+	 */
 	public long getCustomerId() {
 		return customerId;
 	}
 
+	/**
+	 * Set customer ID
+	 * Populated by the Corp2World service
+	 * @param customerId customer ID
+	 */
 	public void setCustomerId(long customerId) {
 		this.customerId = customerId;
 	}
+	
+	/**
+	 * Get message topic
+	 * @return
+	 */
 	public String getTopic() {
 		return topic;
 	}
+	
+	/**
+	 * Set message topic
+	 * @param topic
+	 */
 	public void setTopic(String topic) {
 		this.topic = topic;
 	}
+	
+	/**
+	 * Get message text
+	 * @return
+	 */
 	public String getText() {
 		return text;
 	}
+	
+	/**
+	 * Set message text
+	 * @param text
+	 */
 	public void setText(String text) {
 		this.text = text;
 	}
+	
+	/**
+	 * Get message creation timestamp
+	 * @return creation timestamp
+	 */
 	public long getTimestamp() {
 		return timestamp;
 	}
 
+	/**
+	 * Set message creation timestamp
+	 * @param timestamp creation timestamp
+	 */
 	public void setTimestamp(long timestamp) {
 		this.timestamp = timestamp;
 	}
 
+	/**
+	 * Get message 'time-to-live' in seconds
+	 * (currently may not be supported by the Corp2World service)
+	 * @return message 'time-to-live' period in seconds
+	 */
 	public long getTtl() {
 		return ttl;
 	}
 
+	/**
+	 * Set message 'time-to-live' in seconds
+	 * (currently may not be supported by the Corp2World service)
+	 * @param ttl
+	 */
 	public void setTtl(long ttl) {
 		this.ttl = ttl;
 	}
-
+	
+	/**
+	 * Get message creation date and time in string representation
+	 * @return creation date and time in string representation
+	 */
 	public String getDateTime() {
 		return dateTime;
 	}
 
+	/**
+	 * Set message creation date and time in string representation
+	 * Populated by the Corp2World service
+	 * @param dateTime creation date and time in string representation
+	 */
 	public void setDateTime(String dateTime) {
 		this.dateTime = dateTime;
 	}
@@ -156,6 +221,7 @@ public class Message extends PropertiesModel {
 
 	/**
 	 * Set list if delivery objects.
+	 * Populated by the Corp2World service
 	 * @param deliveries
 	 */
 	public void setDeliveries(List<MessageDelivery> deliveries) {
@@ -180,12 +246,19 @@ public class Message extends PropertiesModel {
 		this.isTest = isTest;
 	}
 
-
+	/**
+	 * Get client IP address
+	 * @return IP address of the client, published this message
+	 */
 	public String getClientIp() {
 		return clientIp;
 	}
 
-
+	/**
+	 * Set client IP address.
+	 * Populated by the Corp2World service
+	 * @param senderIp IP address of the client 
+	 */
 	public void setClientIp(String senderIp) {
 		this.clientIp = senderIp;
 	}

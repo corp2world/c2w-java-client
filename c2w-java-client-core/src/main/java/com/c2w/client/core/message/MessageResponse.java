@@ -62,6 +62,10 @@ public class MessageResponse extends PropertiesModel {
 		this.channelId = channelId;
 	}
 
+	/**
+	 * Get original message ID
+	 * @return message ID
+	 */
 	public long getMessageId() {
 		return messageId;
 	}
