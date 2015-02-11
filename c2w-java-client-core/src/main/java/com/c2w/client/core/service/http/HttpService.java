@@ -342,7 +342,7 @@ public class HttpService implements Service {
 					ctx = SSLContext.getInstance("SSL");
 					ctx.init(null, null, null);
 
-				} catch (KeyManagementException | NoSuchAlgorithmException | CertificateException | KeyStoreException | IOException e) {
+				} catch (Exception e) {
 					log.error("Cannot initialize secure HTTPS communication channel, cannot load server certificate from the specified store: " + certificateFile, e);
 				}
 				

@@ -1,7 +1,7 @@
 package com.c2w.client.core.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
+
 
 /**
  * Service factory class.
@@ -20,7 +20,7 @@ public class ServiceFactory {
 	public static final String DEFAULT_TRANSPORT_CLASS = "com.c2w.client.core.service.http.HttpService";
 	
 	// Logger
-	private static Logger LOGGER = LoggerFactory.getLogger(ServiceFactory.class);
+	private static Logger LOGGER = Logger.getLogger(ServiceFactory.class);
 	
 	// Service instance
 	private static Service service;
