@@ -10,39 +10,40 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>c2w-java-client-core</artifactId>
+	<artifactId>c2w-java-client-log4j2</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Corp2World Java Client</name>
-	<description>Core java client library for Corp2World service</description>
+	<name>Corp2World Appender for Log4j2</name>
+	<description>Appender for Log4j2 library to send logging messages to Corp2World service</description>
 
 	<dependencies>
 
-		<!-- Apache HTTP client -->
+		<!-- HTTP client -->
 		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.2.1</version>
+			<groupId>com.corp2world</groupId>
+			<artifactId>c2w-java-client-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	
+		<!-- Log4j2 -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.1</version>
 		</dependency>
 
-		<!-- Jackson -->
 		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-core</artifactId>
-			<version>2.0.0</version>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.1</version>
 		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.0.0</version>
-		</dependency>
-		
+
 	</dependencies>
 
 	<build>
 		<plugins>
 
-			<!-- Java Compiler plugin 
+			<!-- Java Compiler plugin -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -51,9 +52,9 @@
 					<source>1.7</source>
 					<target>1.7</target>
 				</configuration>
-			</plugin> -->
+			</plugin>
 
-			<!-- Copy dependency libs 
+			<!-- Copy dependency libs -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
@@ -72,7 +73,7 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin> -->
+			</plugin>
 
 		</plugins>
 

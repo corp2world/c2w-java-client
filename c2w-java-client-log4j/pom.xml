@@ -18,14 +18,20 @@
 
 	<dependencies>
 
-		<!-- HTTP client -->
+		<!-- Client core -->
 		<dependency>
 			<groupId>com.corp2world</groupId>
 			<artifactId>c2w-java-client-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 
-
+		<!-- Log4j -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>

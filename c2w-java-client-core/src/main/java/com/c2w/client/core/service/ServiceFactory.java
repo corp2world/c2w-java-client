@@ -1,6 +1,9 @@
 package com.c2w.client.core.service;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+
 
 
 /**
@@ -20,7 +23,7 @@ public class ServiceFactory {
 	public static final String DEFAULT_TRANSPORT_CLASS = "com.c2w.client.core.service.http.HttpService";
 	
 	// Logger
-	private static Logger LOGGER = Logger.getLogger(ServiceFactory.class);
+	private static Log LOG = LogFactory.getLog(ServiceFactory.class);
 	
 	// Service instance
 	private static Service service;
@@ -46,14 +49,14 @@ public class ServiceFactory {
 		String tClass = System.getProperty(TRANSPORT_CLASS);
 		
 		if(tClass==null || tClass.length()<1) {
-			LOGGER.info("Transport class is not set in system properties , will use default: " + DEFAULT_TRANSPORT_CLASS);
+			LOG.info("Transport class is not set in system properties , will use default: " + DEFAULT_TRANSPORT_CLASS);
 			tClass = DEFAULT_TRANSPORT_CLASS;
 		}		
 		
 		try {			
 			service = (Service) Class.forName(tClass).getConstructor().newInstance();
 		} catch (Exception e) {
-			LOGGER.error("Cannot initialize transport",e);
+			LOG.error("Cannot initialize transport",e);
 		} 
 		
 	}

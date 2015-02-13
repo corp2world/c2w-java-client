@@ -1,13 +1,7 @@
 package com.c2w.client.core.service.http;
 
-import java.io.IOException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.security.KeyManagementException;
 import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.CertificateException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -197,7 +191,7 @@ public class HttpService implements Service {
 			
 			// Prepare and execute POST request
 			HttpPost httpPost = new HttpPost(new URL(urlAsString + PATH_POST_MESSAGE).toExternalForm());
-			StringEntity entity = new StringEntity(messageAsJson, StandardCharsets.UTF_8);		
+			StringEntity entity = new StringEntity(messageAsJson, "UTF-8");		
 			entity.setContentType("application/json");
 			httpPost.setEntity(entity);
 			HttpResponse response = httpClient.execute(httpPost);
