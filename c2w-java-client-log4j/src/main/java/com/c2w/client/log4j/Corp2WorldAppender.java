@@ -5,6 +5,7 @@ import java.util.concurrent.BlockingQueue;
 
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.Layout;
+import org.apache.log4j.PatternLayout;
 import org.apache.log4j.helpers.LogLog;
 import org.apache.log4j.spi.LoggingEvent;
 
@@ -14,16 +15,38 @@ import com.c2w.client.core.service.ServiceException;
 import com.c2w.client.core.service.http.HttpService;
 
 /**
- * This class implements Log4j Appender interface and can be used to send logging events to www.Corp2World.com service.
- * It uses internal in-memory buffer of the pre-configured size , where the logging events are accumulated and then 
- * and published to Corp2World service asynchronously.
+ * <p>
+ * This class implements Log4j Appender interface and can be used to send logging events 
+ * to <a href="https://www.corp2world.com">Corp2World.com</a> service.
+ * </p>
+ * <p>
+ * It uses internal in-memory buffer to send logging events messages asynchronously.
+ * </p>
+ * <p>
+ * If internal buffer is full, all incoming logging events will be ignored. 
+ * </p>
  * 
- * If internal queue is full, all incoming logging events will be ignored. 
+ * Configuration example:
+ * <br><br>
+ * <pre>
+ * {@code
+ * 
+ * # Corp2World Appender
+ * log4j.appender.C2W=com.c2w.client.log4j.Corp2WorldAppender
+ * log4j.appender.C2W.ApiToken=<your api token>
+ * log4j.appender.C2W.ApiKey=<your api key>
+ * log4j.appender.C2W.BufferSize=100
+ * log4j.appender.C2W.TopicPattern=Log %-5p Message
+ * log4j.appender.C2W.Layout=org.apache.log4j.PatternLayout
+ * log4j.appender.C2W.Layout.ConversionPattern=%d %p [%t] %c{10} (%M:%L) - %m%n
+ * 
+ * }
+ * </pre>
  * 
  * @author ptrvif
  *
  */
-public class C2WAsyncBufferedAppender extends AppenderSkeleton {
+public class Corp2WorldAppender extends AppenderSkeleton {
 
 	/**
 	 * Default queue size
@@ -64,12 +87,12 @@ public class C2WAsyncBufferedAppender extends AppenderSkeleton {
 	/**
 	 * Topic layout
 	 */
-	private Layout topicLayout;
+	private PatternLayout topicLayout;
 	
 	/**
 	 * Create new appender instance
 	 */
-	public C2WAsyncBufferedAppender() {
+	public Corp2WorldAppender() {
 	}
 	
 	
@@ -77,7 +100,7 @@ public class C2WAsyncBufferedAppender extends AppenderSkeleton {
 	 * Create new instance with the given layout
 	 * @param layout layout
 	 */
-	public C2WAsyncBufferedAppender(Layout layout) {
+	public Corp2WorldAppender(Layout layout) {
 		this.layout = layout;
 	}
 	
@@ -178,7 +201,7 @@ public class C2WAsyncBufferedAppender extends AppenderSkeleton {
 	 * logging events will be ignored 
 	 * @param size queue size
 	 */
-	public void setQueueSize(int size) {
+	public void setBufferSize(int size) {
 		queueSize = size;
 	}
 
@@ -204,31 +227,12 @@ public class C2WAsyncBufferedAppender extends AppenderSkeleton {
 		System.setProperty(HttpService.CLIENT_PASSWORD, key);
 	}
 	
-	
-	/**
-	 * Set Corp2World message topic 
-	 * @param topic message topic
-	 */
-	public void setTopic(String topic) {
-		this.topic = topic;
-	}
-	
-	
-	/**
-	 * Get Topic Layout
-	 * @return layout used to format the message topic
-	 */
-	public Layout getTopicLayout() {
-		return topicLayout;
-	}
-	
-	
 	/**
 	 * Set Topic Layout
 	 * @param layout layout used to format message topic
 	 */
-	public void setTopicLayout(Layout layout) {
-		this.topicLayout = layout;
+	public void setTopicPattern(String pattern) {
+		this.topicLayout = new PatternLayout(pattern);
 	}
 	
 	

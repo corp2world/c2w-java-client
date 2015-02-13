@@ -8,6 +8,7 @@ import org.apache.logging.log4j.core.Filter;
 import org.apache.logging.log4j.core.Layout;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.appender.AbstractAppender;
+import org.apache.logging.log4j.core.config.plugins.Plugin;
 import org.apache.logging.log4j.core.config.plugins.PluginAttribute;
 import org.apache.logging.log4j.core.config.plugins.PluginElement;
 import org.apache.logging.log4j.core.config.plugins.PluginFactory;
@@ -21,15 +22,47 @@ import com.c2w.client.core.service.ServiceException;
 import com.c2w.client.core.service.http.HttpService;
 
 /**
- * This class implements Log4j Appender interface and can be used to send logging events to www.Corp2World.com service.
- * It uses internal in-memory buffer of the pre-configured size , where the logging events are accumulated and then 
- * and published to Corp2World service asynchronously.
+ * <p>
+ * This class implements Log4j Appender interface and can be used to send logging events 
+ * to <a href="https://www.corp2world.com">Corp2World.com</a> service.
+ * </p>
+ * <p>
+ * It uses internal in-memory buffer to send logging events messages asynchronously.
+ * </p>
+ * <p>
+ * If internal buffer is full, all incoming logging events will be ignored. 
+ * </p>
  * 
- * If internal queue is full, all incoming logging events will be ignored. 
+ * Configuration example:
+ * <br><br>
+ * <pre>
+ * {@code
+ * <Configuration status="debug" packages="com.c2w.client.log4j2">
+ *   ...
+ *   <Appenders>
+ *     ...
+ *     <Corp2World name="C2W"
+    	  apiToken="<your api token>"
+    	  apiKey="<your api key>"
+    	  topicPattern="Log  %-5p Message"
+    	  bufferSize="100" >
+    	  <PatternLayout pattern="%d %-5p [%t] %C{2} (%F:%L) - %m%n"/>
+      </Corp2World>
+    </Appenders>
+    <Loggers>
+	  ...
+      <Logger name="com.test" level="info" additivity="false">
+    	<AppenderRef ref="C2W"/>
+      </Logger>
+    </Loggers>  
+  </Configuration>    
+ * }
+ * </pre>
  * 
  * @author ptrvif
  *
  */
+@Plugin(name = "Corp2World", category = "Core", elementType = "appender", printObject = false)
 public class Corp2WorldAppender extends AbstractAppender {
 
 	/**
@@ -365,6 +398,7 @@ public class Corp2WorldAppender extends AbstractAppender {
 			@PluginAttribute("bufferSize") final String bufferSizeStr,
 			@PluginAttribute("apiToken") final String apiToken,
 			@PluginAttribute("apiKey") final String apiKey,
+			@PluginAttribute("topicPattern") final String topicPattern,
 			@PluginElement("Layout") Layout<? extends Serializable> layout,
 			@PluginElement("Filter") final Filter filter
 			) {
@@ -401,6 +435,9 @@ public class Corp2WorldAppender extends AbstractAppender {
 		appender.setQueueSize(queueSize);
 		appender.setApiToken(apiToken);
 		appender.setApiKey(apiKey);
+		
+		if(topicPattern != null && !"".equals(topicPattern) )
+			appender.setTopicLayout( PatternLayout.newBuilder().withPattern(topicPattern).build() );
 		
 		return appender;
 	}
