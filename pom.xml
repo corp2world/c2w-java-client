@@ -31,8 +31,8 @@
 	</licenses>
 
 	<scm>
-        <connection>scm:git:git:@github.com:corp2world/c2w-java-client.git</connection>
-        <developerConnection>scm:git:git@github.com:corp2world/c2w-java-client.git</developerConnection>
+        <connection>scm:git:https://github.com/corp2world/c2w-java-client.git</connection>
+        <developerConnection>scm:git:https://github.com/corp2world/c2w-java-client.git</developerConnection>
 		<url>http://github.com/corp2world/c2w-java-client</url>
 		<tag>HEAD</tag>
 	</scm>
