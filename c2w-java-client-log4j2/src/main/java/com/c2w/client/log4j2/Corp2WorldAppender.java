@@ -305,7 +305,7 @@ public class Corp2WorldAppender extends AbstractAppender {
 	
 	/**
 	 * Get service instance
-	 * @return
+	 * @return Corp2World service instance
 	 * @throws ServiceException
 	 */
 	protected Service getService() throws ServiceException {

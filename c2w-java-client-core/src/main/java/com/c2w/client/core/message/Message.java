@@ -94,7 +94,7 @@ public class Message extends PropertiesModel {
 	
 	/**
 	 * Get message topic
-	 * @return
+	 * @return message topic
 	 */
 	public String getTopic() {
 		return topic;
@@ -110,7 +110,7 @@ public class Message extends PropertiesModel {
 	
 	/**
 	 * Get message text
-	 * @return
+	 * @return message text
 	 */
 	public String getText() {
 		return text;
@@ -178,7 +178,7 @@ public class Message extends PropertiesModel {
 	/**
 	 * Get channel-recipient map, if the user ID is not configured on the customer channel (special mode) then
 	 * the message will provide the list of recipients for each channel type. 
-	 * @return
+	 * @return channel recipients map , with channel type as 'key' and list of recipients as 'value'
 	 */
 	public Map<Long, List<String>> getChannelRecipients() {
 		return channelRecipients;
@@ -197,7 +197,7 @@ public class Message extends PropertiesModel {
 	/**
 	 * Time when message should be delivered. If set then this time should be used to schedule message delivery 
 	 * in the future.
-	 * @return
+	 * @return message delivery time
 	 */
 	public long getDeliveryTime() {
 		return deliveryTime;
@@ -274,7 +274,7 @@ public class Message extends PropertiesModel {
 
 	/**
 	 * Set dialog options
-	 * @param options map where key is response and value is hint
+	 * @param dialogOptions list of response options
 	 */
 	public void setDialogOptions(List<String> dialogOptions) {
 		this.dialogOptions = dialogOptions;
@@ -282,8 +282,7 @@ public class Message extends PropertiesModel {
 	
 	/**
 	 * Add dialog option
-	 * @param response option response
-	 * @param hint option hint (description)
+	 * @param option response option
 	 */
 	public void addDialogOption(String option) {  
 		dialogOptions.add(option);

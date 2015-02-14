@@ -35,7 +35,7 @@ public class ServiceFactory {
 	
 	/**
 	 * Get instance of the service
-	 * @return
+	 * @return Corp2World service instance
 	 */
 	public static Service getService() {
 		return service;	

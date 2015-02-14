@@ -229,7 +229,7 @@ public class Corp2WorldAppender extends AppenderSkeleton {
 	
 	/**
 	 * Set Topic Layout
-	 * @param layout layout used to format message topic
+	 * @param pattern layout pattern used to format message topic
 	 */
 	public void setTopicPattern(String pattern) {
 		this.topicLayout = new PatternLayout(pattern);
@@ -256,7 +256,7 @@ public class Corp2WorldAppender extends AppenderSkeleton {
 	
 	/**
 	 * Get service instance
-	 * @return
+	 * @return Corp2World service instance
 	 * @throws ServiceException
 	 */
 	protected Service getService() throws ServiceException {
