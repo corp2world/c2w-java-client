@@ -4,7 +4,7 @@
 
 	<groupId>com.corp2world</groupId>
 	<artifactId>c2w-java-client</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	
 	<name>Corp2World Java Client</name>
@@ -33,7 +33,7 @@
         <connection>scm:git:https://github.com/corp2world/c2w-java-client.git</connection>
         <developerConnection>scm:git:https://github.com/corp2world/c2w-java-client.git</developerConnection>
 		<url>http://github.com/corp2world/c2w-java-client</url>
-		<tag>v1.0.0</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<developers>
