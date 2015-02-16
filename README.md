@@ -12,6 +12,32 @@ Current version has the following modules:
 * c2w-java-client-log4j : Log4j Appender to send log messages to Corp2World.com service
 * c2w-java-client-log4j2 : Log4j 2 Appender to send log messages to Corp2World.com service
 
+These modules are available in the Maven central repository:
+
+```
+<dependency>
+    <groupId>com.corp2world</groupId>
+    <artifactId>c2w-java-client-core</artifactId>
+    <version>1.0.0</version>
+</dependency>
+
+<dependency>
+    <groupId>com.corp2world</groupId>
+    <artifactId>c2w-java-client-log4j</artifactId>
+    <version>1.0.0</version>
+</dependency>
+
+<dependency>
+    <groupId>com.corp2world</groupId>
+    <artifactId>c2w-java-client-log4j2</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+For other build frameworks, supporting Maven artifact repositories, use the standard approach to add dependencies to your project.
+
+You can also download binary distribution from <a href="https://corp2world.com/Downloads/DownloadsList">Corp2World Download page</a> and add JARs mannualy to your project classpath.
+
 
 ##### 2. Accessing Corp2World REST API
 
