@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.corp2world</groupId>
 		<artifactId>c2w-java-client</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.0.0</version>
 	</parent>
 
 	<artifactId>c2w-java-client-core</artifactId>
