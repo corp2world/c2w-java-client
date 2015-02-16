@@ -4,7 +4,7 @@
 
 	<groupId>com.corp2world</groupId>
 	<artifactId>c2w-java-client</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	
 	<name>Corp2World Java Client</name>
