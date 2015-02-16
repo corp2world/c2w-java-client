@@ -7,6 +7,12 @@ www.Corp2World.com communication service provides simple and easy to use REST AP
 
 This library provides more convinient higher level Java API to communicate to Corp2World service, as well as some additional add-ons for different 3rd party libraries and frameworks. Please read documentation about service at https://corp2world.com/Home/DocumentationEn .
 
+Current version has the following modules:
+* c2w-java-client-core : core library to send messages by calling Corp2World.com REST API
+* c2w-java-client-log4j : Log4j Appender to send log messages to Corp2World.com service
+* c2w-java-client-log4j2 : Log4j 2 Appender to send log messages to Corp2World.com service
+
+
 ##### 2. Accessing Corp2World REST API
 
 In order to access REST API provided by Corp2World , you need to register an account on www.corp2world.com, setup at least one communication channel and generate an API Token in profile settings. This API Token is used to authorize your requests to the service. Token consists of 'Token ID' and 'Token Key' which you can specify in one of the following ways:
@@ -116,5 +122,60 @@ Below is the full list of the supported configuration parameters:
 - com.c2w.service.proxy.user : proxy user name (optional, if proxy is used to access Internet)
 - com.c2w.service.proxy.password : proxy password (optional, if proxy is used to access Internet)
 
+##### 8. Using Log4j Appender 
 
+This appender is located in 'c2w-java-client-log4j' module and can be used to send logging message directly to Corp2World.com service. Below is shown a sample Appender configuration:
 
+```
+# Category with Corp2World appender
+log4j.category.com.test=info, C2W
+...
+# Corp2World Appender
+log4j.appender.C2W=com.c2w.client.log4j.Corp2WorldAppender
+log4j.appender.C2W.ApiToken=API|1122...
+log4j.appender.C2W.ApiKey=AABB11...
+log4j.appender.C2W.BufferSize=100
+log4j.appender.C2W.TopicPattern=Log %-5p Message
+log4j.appender.C2W.Layout=org.apache.log4j.PatternLayout
+log4j.appender.C2W.Layout.ConversionPattern=%d %p [%t] %c{10} (%M:%L) - %m%n
+```
+
+* ApiToken - your API access token (from your Corp2World profile settings)
+* ApiKey - your API access key (from your Corp2World profile settings)
+* BufferSize - this appender sends messages asynchronously and uses internal buffer. If buffer is full the logging event will be ignored
+* TopicPattern - used to format the message topic
+* Layout - used to format the message text
+
+##### 9. Using Log4j2 Appender
+
+This appender is located in 'c2w-java-client-log4j2' module and can be used to send logging message directly to Corp2World.com service. Below is shown a sample Appender configuration:
+
+```
+<Configuration status="warn" packages="com.c2w.client.log4j2">
+...
+<Appenders>
+ ...
+ <Corp2World name="C2W"
+     apiToken="API|1122..."
+     apiKey="AABB11...."
+     topicPattern="Log  %-5p Message"
+     bufferSize="100" >
+     <PatternLayout pattern="%d %-5p [%t] %C{2} (%F:%L) - %m%n"/>
+    </Corp2World>
+    ...
+</Appenders>
+
+ <Loggers>
+    ...
+    <Logger name="com.test" level="warn" additivity="false">
+    	<AppenderRef ref="C2W"/>
+    </Logger>
+  </Loggers>
+
+```
+
+* ApiToken - your API access token (from your Corp2World profile settings)
+* ApiKey - your API access key (from your Corp2World profile settings)
+* BufferSize - this appender sends messages asynchronously and uses internal buffer. If buffer is full the logging event will be ignored
+* TopicPattern - used to format the message topic
+* Layout - used to format the message text
