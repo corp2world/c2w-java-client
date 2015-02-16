@@ -77,12 +77,12 @@ public class HttpService implements Service {
 	/**
 	 * System property to specify Corp2World client name
 	 */
-	public static final String CLIENT_NAME = "com.c2w.client.token";
+	public static final String API_TOKEN = "com.c2w.client.token";
 	
 	/**
 	 * System property to specify Corp2World client password
 	 */
-	public static final String CLIENT_PASSWORD = "com.c2w.client.key";
+	public static final String API_KEY = "com.c2w.client.key";
 	
 	/**
 	 * System property to specify Corp2World certificate file storage
@@ -163,6 +163,17 @@ public class HttpService implements Service {
 	 * Service URL string
 	 */
 	private String urlAsString = DEFAULT_URL;
+	
+	/*
+	 * API access token
+	 */
+	private String apiToken;
+	
+	/*
+	 * API access key
+	 */
+	private String apiKey;
+	
 	
 	/**
 	 * Create new service instance
@@ -282,15 +293,15 @@ public class HttpService implements Service {
 			url = new URL(urlAsString);
 			
 			// Get client name
-			String clientName = System.getProperty(CLIENT_NAME);
+			String clientName = (apiToken != null && !apiToken.equals("")) ? apiToken : System.getProperty(API_TOKEN);
 			if(clientName == null || clientName.length() < 1) {
 				log.error("Client name must be specified, please refer documentation for details");
 				throw new ServiceException("Cannot initialize HttpTransport, client name is not specified");
 			}	
 
 			// Get client password
-			String clientPassword = System.getProperty(CLIENT_PASSWORD);
-			if(clientName == null || clientName.length() < 1) {
+			String clientPassword = (apiKey != null && !apiKey.equals("")) ? apiKey : System.getProperty(API_KEY);
+			if(clientPassword == null || clientPassword.length() < 1) {
 				log.error("Client password must be specified, please refer documentation for details");
 				throw new ServiceException("Cannot initialize HttpTransport, client password is not specified");
 			}	
@@ -422,6 +433,28 @@ public class HttpService implements Service {
 		stop();
 	}
 
+	/**
+	 * Get API access token
+	 * @return API token
+	 */
+	public String getApiToken() {
+		return apiToken;
+	}
 
+	/**
+	 * Set API access token
+	 * @param apiToken api token
+	 */
+	public void setApiToken(String apiToken) {
+		this.apiToken = apiToken;
+	}
+
+	/**
+	 * Set API access security key
+	 * @param apiKey APi key
+	 */
+	public void setApiKey(String apiKey) {
+		this.apiKey = apiKey;
+	}
 	
 }

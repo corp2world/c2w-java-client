@@ -116,9 +116,11 @@ public class Corp2WorldAppender extends AppenderSkeleton {
 			if(isRunning)
 				isRunning = false;
 			
-			publisherThread.interrupt();
+			if(publisherThread != null)
+				publisherThread.interrupt();
 			
-			service.stop();
+			if(service != null)
+				service.stop();
 			
 		} catch(ServiceException e) {
 			LogLog.warn("Error while stopping service: " + e.getMessage());
@@ -213,7 +215,7 @@ public class Corp2WorldAppender extends AppenderSkeleton {
 	 */
 	public void setApiToken(String token) {
 		
-		System.setProperty(HttpService.CLIENT_NAME, token);
+		System.setProperty(HttpService.API_TOKEN, token);
 	}
 	
 	
@@ -224,7 +226,7 @@ public class Corp2WorldAppender extends AppenderSkeleton {
 	 */
 	public void setApiKey(String key) {
 		
-		System.setProperty(HttpService.CLIENT_PASSWORD, key);
+		System.setProperty(HttpService.API_KEY, key);
 	}
 	
 	/**

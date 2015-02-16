@@ -147,6 +147,12 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>com.googlecode.jmockit</groupId>
+			<artifactId>jmockit</artifactId>
+			<version>1.7</version>
+			<scope>test</scope>
+		</dependency>
 
 	</dependencies>
 	

@@ -71,6 +71,11 @@ public class Corp2WorldAppender extends AbstractAppender {
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * Default topic, used if topic pattern is not specified
+	 */
+	public static final String DEFAULT_TOPIC = "Message from Log4j appender";
+	
+	/**
 	 * Default queue size
 	 */
 	public static final int DEFAULT_QUEUE_SIZE = 1000;
@@ -87,9 +92,19 @@ public class Corp2WorldAppender extends AbstractAppender {
 	private int queueSize = DEFAULT_QUEUE_SIZE;
 	
 	/**
+	 * API access token
+	 */
+	private String apiToken;
+	
+	/**
+	 * API access key
+	 */
+	private String apiKey;
+	
+	/**
 	 * Corp2World Service instance
 	 */
-	private Service service;
+	private HttpService service;
 	
 	/**
 	 * Internal message publishing thread
@@ -100,11 +115,6 @@ public class Corp2WorldAppender extends AbstractAppender {
 	 * Flag to control publisher thread
 	 */
 	private boolean isRunning;
-	
-	/**
-	 * Topic text will be used in C2W message
-	 */
-	private String topic = "Message from Log4j appender";
 	
 	/**
 	 * Topic layout
@@ -231,7 +241,7 @@ public class Corp2WorldAppender extends AbstractAppender {
 	 * logging events will be ignored 
 	 * @param size queue size
 	 */
-	public void setQueueSize(int size) {
+	protected void setQueueSize(int size) {
 		queueSize = size;
 	}
 
@@ -241,9 +251,9 @@ public class Corp2WorldAppender extends AbstractAppender {
 	 * This value will override the value provided in system properties (if any)
 	 * @param token token
 	 */
-	public void setApiToken(String token) {
+	protected void setApiToken(String token) {
 		
-		System.setProperty(HttpService.CLIENT_NAME, token);
+		this.apiToken = token;
 	}
 	
 	
@@ -252,27 +262,9 @@ public class Corp2WorldAppender extends AbstractAppender {
 	 * This value will override the value provided in system properties (if any)
 	 * @param key key
 	 */
-	public void setApiKey(String key) {
+	protected void setApiKey(String key) {
 		
-		System.setProperty(HttpService.CLIENT_PASSWORD, key);
-	}
-	
-	
-	/**
-	 * Set Corp2World message topic 
-	 * @param topic message topic
-	 */
-	public void setTopic(String topic) {
-		this.topic = topic;
-	}
-	
-	
-	/**
-	 * Get Topic Layout
-	 * @return layout used to format the message topic
-	 */
-	public Layout<? extends Serializable> getTopicLayout() {
-		return topicLayout;
+		this.apiKey = key;
 	}
 	
 	
@@ -280,7 +272,7 @@ public class Corp2WorldAppender extends AbstractAppender {
 	 * Set Topic Layout
 	 * @param layout layout used to format message topic
 	 */
-	public void setTopicLayout(Layout<? extends Serializable> layout) {
+	protected void setTopicLayout(Layout<? extends Serializable> layout) {
 		this.topicLayout = layout;
 	}
 	
@@ -319,6 +311,8 @@ public class Corp2WorldAppender extends AbstractAppender {
 			synchronized(this) {
 				if(service == null) {
 					service = new HttpService();
+					service.setApiToken(apiToken);
+					service.setApiKey(apiKey);
 					service.start();
 				}
 			}
@@ -337,7 +331,7 @@ public class Corp2WorldAppender extends AbstractAppender {
 		if(topicLayout != null)
 			messageTopic = new String( topicLayout.toByteArray(event) );
 		else
-			messageTopic = topic;
+			messageTopic = DEFAULT_TOPIC;
 		
 		
 		StringBuilder messageText = new StringBuilder();
