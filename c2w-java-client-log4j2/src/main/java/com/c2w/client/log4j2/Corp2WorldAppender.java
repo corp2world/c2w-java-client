@@ -431,7 +431,7 @@ public class Corp2WorldAppender extends AbstractAppender {
 		appender.setApiKey(apiKey);
 		
 		if(topicPattern != null && !"".equals(topicPattern) )
-			appender.setTopicLayout( PatternLayout.newBuilder().withPattern(topicPattern).build() );
+			appender.setTopicLayout( PatternLayout.newBuilder().withPattern(topicPattern).withAlwaysWriteExceptions(false).build() );
 		
 		return appender;
 	}
